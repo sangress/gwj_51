@@ -1,0 +1,61 @@
+[gd_scene load_steps=5 format=2]
+
+[ext_resource path="res://scripts/UpgradeItem.gd" type="Script" id=1]
+[ext_resource path="res://scripts/Game.gd" type="Script" id=2]
+[ext_resource path="res://prefabs/Rockets.tscn" type="PackedScene" id=3]
+
+[sub_resource type="CubeMesh" id=1]
+
+[node name="Game" type="Spatial"]
+script = ExtResource( 2 )
+
+[node name="Bread" type="Spatial" parent="."]
+transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 0.258829, 0, 0, 0 )
+
+[node name="MeshInstance" type="MeshInstance" parent="Bread"]
+mesh = SubResource( 1 )
+material/0 = null
+
+[node name="Camera" type="Camera" parent="Bread"]
+transform = Transform( 0.860752, -0.189147, 0.472578, 0.0337957, 0.947585, 0.317712, -1.96231, -0.994866, 3.17595, 1.85907, 1.22068, 10.3364 )
+current = true
+
+[node name="rockets" type="Position3D" parent="Bread"]
+transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, -0.152795, -0.867096, 0 )
+
+[node name="CanvasLayer" type="CanvasLayer" parent="."]
+
+[node name="Label" type="Label" parent="CanvasLayer"]
+margin_left = 35.0
+margin_top = 25.0
+margin_right = 113.0
+margin_bottom = 39.0
+text = "Space Bread"
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
+[node name="Rockets" type="ViewportContainer" parent="CanvasLayer"]
+margin_left = 23.0
+margin_top = 107.0
+margin_right = 123.0
+margin_bottom = 207.0
+script = ExtResource( 1 )
+__meta__ = {
+"_edit_use_anchors_": false
+}
+item_name = "rockets"
+
+[node name="Viewport" type="Viewport" parent="CanvasLayer/Rockets"]
+size = Vector2( 100, 100 )
+handle_input_locally = false
+debug_draw = 2
+render_target_update_mode = 3
+
+[node name="Camera" type="Camera" parent="CanvasLayer/Rockets/Viewport"]
+transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, -45.1736, 0, 2.08499 )
+fov = 35.0
+
+[node name="Rockets" parent="CanvasLayer/Rockets/Viewport" instance=ExtResource( 3 )]
+transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, -45.3844, 0, -3.1418 )
+[connection signal="gui_input" from="CanvasLayer/Rockets" to="CanvasLayer/Rockets" method="_on_UpgradeItem_gui_input"]

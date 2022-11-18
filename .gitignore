@@ -1,0 +1,4 @@
+build/
+# Imported translations (automatically generated from CSV files)
+*.translation
+node_modules/
